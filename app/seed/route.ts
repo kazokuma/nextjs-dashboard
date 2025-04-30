@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import postgres from 'postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { log } from 'node:console';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
@@ -25,6 +26,7 @@ async function seedUsers() {
       `;
     })
   );
+  console.log('user table finished');
 
   return insertedUsers;
 }
@@ -51,6 +53,7 @@ async function seedInvoices() {
       `
     )
   );
+  console.log('revenues table finished');
 
   return insertedInvoices;
 }
@@ -76,6 +79,7 @@ async function seedCustomers() {
       `
     )
   );
+  console.log('customers table finished');
 
   return insertedCustomers;
 }
@@ -97,6 +101,7 @@ async function seedRevenue() {
       `
     )
   );
+  console.log('revenues table finished');
 
   return insertedRevenue;
 }
@@ -104,9 +109,9 @@ async function seedRevenue() {
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
-      seedUsers(),
-      seedCustomers(),
-      seedInvoices(),
+      // seedUsers(),
+      // seedCustomers(),
+      // seedInvoices(),
       seedRevenue(),
     ]);
 
